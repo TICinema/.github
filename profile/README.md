@@ -30,7 +30,7 @@
 git clone [https://github.com/TICinema/TICinema.Infrastructure.git](https://github.com/TICinema/TICinema.Infrastructure.git)
 cd docker
 docker-compose up -d
-```
+
 graph TD
     User((Пользователь)) -->|REST| Gateway[API Gateway]
     
@@ -53,4 +53,3 @@ graph TD
     style Gateway fill:#f96,stroke:#333,stroke-width:2px
     style RabbitMQ fill:#ff6,stroke:#333
     style Stripe fill:#6772e5,color:#fff
-```
