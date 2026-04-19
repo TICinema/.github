@@ -31,10 +31,16 @@ git clone [https://github.com/TICinema/TICinema.Infrastructure.git](https://gith
 cd docker
 docker-compose up -d
 
+# 🎬 TICinema — Microservices Cinema Ecosystem
+
+Современная экосистема для управления кинотеатром, построенная на микросервисной архитектуре с использованием .NET 10, gRPC и RabbitMQ.
+
+## 🏗 Архитектура (C4 Model Level 2)
+
+```mermaid
 graph TD
     User((Пользователь)) -->|REST| Gateway[API Gateway]
     
-    %% Группировка через подграфы (визуально выделит бэкенд)
     subgraph "Core Microservices (gRPC)"
         Gateway -->|gRPC| Identity[Identity Service]
         Gateway -->|gRPC| Screening[Screening Service]
@@ -44,12 +50,10 @@ graph TD
         Screening -->|gRPC| Theater[Theater Service]
     end
 
-    %% Внешние системы и события
     Payment -->|Webhook| Stripe{Stripe API}
     Payment -->|Events| RabbitMQ[RabbitMQ]
     RabbitMQ -->|Notify| Notification[Notification Service]
 
-    %% Стилизация для красоты
     style Gateway fill:#f96,stroke:#333,stroke-width:2px
     style RabbitMQ fill:#ff6,stroke:#333
     style Stripe fill:#6772e5,color:#fff
