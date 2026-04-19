@@ -38,22 +38,9 @@ docker-compose up -d
 ## 🏗 Архитектура (C4 Model Level 2)
 
 ```mermaid
-graph TD
-    User((Пользователь)) -->|REST| Gateway[API Gateway]
-    
-    subgraph "Core Microservices (gRPC)"
-        Gateway -->|gRPC| Identity[Identity Service]
-        Gateway -->|gRPC| Screening[Screening Service]
-        Gateway -->|gRPC| Payment[Payment Service]
-        
-        Screening -->|gRPC| Movie[Movie Service]
-        Screening -->|gRPC| Theater[Theater Service]
-    end
-
-    Payment -->|Webhook| Stripe{Stripe API}
-    Payment -->|Events| RabbitMQ[RabbitMQ]
-    RabbitMQ -->|Notify| Notification[Notification Service]
-
-    style Gateway fill:#f96,stroke:#333,stroke-width:2px
-    style RabbitMQ fill:#ff6,stroke:#333
-    style Stripe fill:#6772e5,color:#fff
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
