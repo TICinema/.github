@@ -30,13 +30,27 @@
 git clone [https://github.com/TICinema/TICinema.Infrastructure.git](https://github.com/TICinema/TICinema.Infrastructure.git)
 cd docker
 docker-compose up -d
-
+```
 graph TD
     User((Пользователь)) -->|REST| Gateway[API Gateway]
-    Gateway -->|gRPC| Identity[Identity Service]
-    Gateway -->|gRPC| Screening[Screening Service]
-    Screening -->|gRPC| Movie[Movie Service]
-    Screening -->|gRPC| Theater[Theater Service]
-    Payment[Payment Service] -->|Webhook| Stripe{Stripe API}
+    
+    %% Группировка через подграфы (визуально выделит бэкенд)
+    subgraph "Core Microservices (gRPC)"
+        Gateway -->|gRPC| Identity[Identity Service]
+        Gateway -->|gRPC| Screening[Screening Service]
+        Gateway -->|gRPC| Payment[Payment Service]
+        
+        Screening -->|gRPC| Movie[Movie Service]
+        Screening -->|gRPC| Theater[Theater Service]
+    end
+
+    %% Внешние системы и события
+    Payment -->|Webhook| Stripe{Stripe API}
     Payment -->|Events| RabbitMQ[RabbitMQ]
     RabbitMQ -->|Notify| Notification[Notification Service]
+
+    %% Стилизация для красоты
+    style Gateway fill:#f96,stroke:#333,stroke-width:2px
+    style RabbitMQ fill:#ff6,stroke:#333
+    style Stripe fill:#6772e5,color:#fff
+```
