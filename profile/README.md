@@ -30,3 +30,13 @@
 git clone [https://github.com/TICinema/TICinema.Infrastructure.git](https://github.com/TICinema/TICinema.Infrastructure.git)
 cd docker
 docker-compose up -d
+
+graph TD
+    User((Пользователь)) -->|REST| Gateway[API Gateway]
+    Gateway -->|gRPC| Identity[Identity Service]
+    Gateway -->|gRPC| Screening[Screening Service]
+    Screening -->|gRPC| Movie[Movie Service]
+    Screening -->|gRPC| Theater[Theater Service]
+    Payment[Payment Service] -->|Webhook| Stripe{Stripe API}
+    Payment -->|Events| RabbitMQ[RabbitMQ]
+    RabbitMQ -->|Notify| Notification[Notification Service]
